@@ -10,7 +10,7 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'sinon'],
 
 
     // list of files / patterns to load in the browser
@@ -18,7 +18,13 @@ module.exports = function(config) {
       'app/vendor/jquery-2.1.4.min.js',
       'app/vendor/lodash.min.js',
       'app/vendor/backbone-min.js',
+      'app/vendor/**/*.js',
+      'app/templates/**/*.js',
       'app/js/**/*.js',
+      'test/support/namespaces.js',
+      'test/factories/**/*.js',
+      'test/routes/routes.js',
+      'test/routes/**/*.js',
       'test/**/*.js'
     ],
 
@@ -59,7 +65,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode
