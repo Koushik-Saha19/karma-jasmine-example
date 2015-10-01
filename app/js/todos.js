@@ -1,18 +1,32 @@
 // An example Backbone application contributed by
-// [Jérôme Gravel-Niquet](http://jgn.me/). This demo uses a simple
-// [LocalStorage adapter](backbone.localStorage.html)
-// to persist Backbone models within your browser.
+// [Jérôme Gravel-Niquet](http://jgn.me/).
 
 var App = App || {};
 
 // Load the application once the DOM is ready, using `jQuery.ready`:
 (function(){
 
+  App.Config = {
+    baseUrl: 'https://doug2k1-todos.firebaseio.com/'
+  };
+
   // Todo Model
   // ----------
 
   App.Todo = Backbone.Model.extend({
-    url: 'https://backbone-todos.firebaseio.com/todo',
+    idAttribute: 'name',
+    url: function () {
+      var url = App.Config.baseUrl + 'todos',
+        name = this.get('name');
+
+      if (name) {
+        url += '/' + name;
+      }
+
+      url += '.json';
+
+      return url;
+    },
 
     // Default attributes for the todo item.
     defaults: function() {
@@ -25,7 +39,7 @@ var App = App || {};
 
     // Toggle the `done` state of this todo item.
     toggle: function() {
-      this.save({done: !this.get('done')});
+      this.save({done: !this.get('done')}, {patch: true});
     }
   });
 
@@ -33,10 +47,16 @@ var App = App || {};
   // ---------------
 
   App.TodoList = Backbone.Collection.extend({
-    url: 'https://backbone-todos.firebaseio.com/todos',
+    url: App.Config.baseUrl + 'todos.json',
 
     // Reference to this collection's model.
     model: App.Todo,
+
+    parse: function (response) {
+      return _.map(response, function (value, key) {
+        return _.extend({ name: key}, value);
+      });
+    },
 
     // Filter down the list of all todo items that are finished.
     done: function() {
@@ -111,7 +131,7 @@ var App = App || {};
       if (!value) {
         this.clear();
       } else {
-        this.model.save({title: value});
+        this.model.save({title: value}, {patch: true});
         this.$el.removeClass('editing');
       }
     },
@@ -151,7 +171,7 @@ var App = App || {};
       this.listenTo(Todos, 'add', this.addOne);
       this.listenTo(Todos, 'reset', this.addAll);
       this.listenTo(Todos, 'all', this.render);
-
+      this.$el.html(this.template());
       Todos.fetch();
     },
 
@@ -161,7 +181,6 @@ var App = App || {};
       var done = Todos.done().length;
       var remaining = Todos.remaining().length;
 
-      this.$el.html(this.template());
       this.input = this.$('#new-todo');
       this.allCheckbox = this.$('#toggle-all')[0];
       this.footer = this.$('footer');
@@ -184,7 +203,7 @@ var App = App || {};
     // Add a single todo item to the list by creating a view for it, and
     // appending its element to the `<ul>`.
     addOne: function(todo) {
-      var view = new TodoView({model: todo});
+      var view = new App.TodoView({model: todo});
       this.$('#todo-list').append(view.render().el);
     },
 
@@ -211,7 +230,7 @@ var App = App || {};
 
     toggleAllComplete: function () {
       var done = this.allCheckbox.checked;
-      Todos.each(function (todo) { todo.save({'done': done}); });
+      Todos.each(function (todo) { todo.save({'done': done}, {patch: true}); });
     }
   });
 

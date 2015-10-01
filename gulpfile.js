@@ -52,7 +52,8 @@ gulp.task('server', function() {
     .pipe(webserver({
       livereload: false,
       directoryListing: true,
-      open: false
+      open: false,
+      fallback: 'index.html'
     }));
 });
 
