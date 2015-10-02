@@ -22,6 +22,7 @@ module.exports = function(config) {
       'app/templates/**/*.js',
       'app/js/**/*.js',
       'test/support/namespaces.js',
+      'test/support/vendor/**/*.js',
       'test/factories/**/*.js',
       'test/routes/routes.js',
       'test/routes/**/*.js',

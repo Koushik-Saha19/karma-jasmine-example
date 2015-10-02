@@ -9,8 +9,6 @@
 
 <body>
 
-
-
   <div id="instructions">
     Double-click to edit a todo.
   </div>
@@ -28,6 +26,18 @@
   <script src="vendor/handlebars.runtime.min.js"></script>
   <script src="templates/templates.js"></script>
   <script src="js/todos.js"></script>
+  <script>
+    $(function () {
+      // Create our global collection of **Todos**.
+      var Todos = new App.TodoList();
 
+      // Finally, we kick things off by creating the **App**.
+      var appView = new App.AppView({
+        collection: Todos
+      });
+      
+      $('body').prepend(appView.render().el);
+    });
+  </script>
   </body>
 </html>
