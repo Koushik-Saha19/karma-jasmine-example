@@ -1,52 +1,52 @@
 (function () {
-    'use strict';
+  'use strict';
 
-    App.Test.Routes = {
-        init: function () {
-            this.server = sinon.fakeServer.create({
-                respondImmediately: true
-            });
-        },
+  App.Test.Routes = {
+    init: function () {
+      this.server = sinon.fakeServer.create({
+        respondImmediately: true
+      });
+    },
 
-        enableRoute: function (route) {
-            var method = route.method || 'GET';
+    enableRoute: function (route) {
+      var method = route.method || 'GET';
 
-            this.server.respondWith(method, route.url, route.response);
-        },
+      this.server.respondWith(method, route.url, route.response);
+    },
 
-        getRequests: function () {
-            return this.server.requests;
-        },
+    getRequests: function () {
+      return this.server.requests;
+    },
 
-        getLastRequest: function () {
-            return _.last(this.getRequests());
-        },
+    getLastRequest: function () {
+      return _.last(this.getRequests());
+    },
 
-        getLastResponseJSON: function () {
-            var request = this.getLastRequest();
+    getLastResponseJSON: function () {
+      var request = this.getLastRequest();
 
-            if (request) {
-                return JSON.parse(request.responseText);
-            }
+      if (request) {
+        return JSON.parse(request.responseText);
+      }
 
-            return null;
-        },
+      return null;
+    },
 
-        getLastResponseJSONOfRoute: function (route) {
-            var requests = this.getRequests(),
-                request = _.findLast(reqs, function (request) {
-                    return request.url.match(route.url);
-                });
+    getLastResponseJSONOfRoute: function (route) {
+      var requests = this.getRequests(),
+        request = _.findLast(reqs, function (request) {
+          return request.url.match(route.url);
+        });
 
-            if (request) {
-                return JSON.parse(request.responseText);
-            }
+      if (request) {
+        return JSON.parse(request.responseText);
+      }
 
-            return null;
-        },
+      return null;
+    },
 
-        restore: function () {
-            this.server.restore();
-        }
-    };
+    restore: function () {
+      this.server.restore();
+    }
+  };
 }());

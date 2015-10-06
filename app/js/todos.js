@@ -4,7 +4,7 @@
 var App = App || {};
 
 App.Config = {
-  baseUrl: ''//'https://doug2k1-todos.firebaseio.com/'
+  baseUrl: 'https://doug2k1-todos.firebaseio.com/'
 };
 
 // Todo Model
