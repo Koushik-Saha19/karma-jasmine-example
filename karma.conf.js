@@ -5,29 +5,29 @@ module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
-
+    basePath: '/',
+    browsers: ['PhantomJS'],
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine', 'sinon'],
+    frameworks: ['jasmine'],
 
 
     // list of files / patterns to load in the browser
-    files: [
-      'app/vendor/jquery-2.1.4.min.js',
-      'app/vendor/lodash.min.js',
-      'app/vendor/backbone-min.js',
-      'app/vendor/**/*.js',
-      'app/templates/**/*.js',
-      'app/js/**/*.js',
-      'test/support/namespaces.js',
-      'test/support/vendor/**/*.js',
-      'test/factories/**/*.js',
-      'test/routes/routes.js',
-      'test/routes/**/*.js',
-      'test/**/*.js'
-    ],
+//     files: [
+//       'app/vendor/jquery-2.1.4.min.js',
+//       'app/vendor/lodash.min.js',
+//       'app/vendor/backbone-min.js',
+//       'app/vendor/**/*.js',
+//       'app/templates/**/*.js',
+//       'app/js/**/*.js',
+//       'test/support/namespaces.js',
+//       'test/support/vendor/**/*.js',
+//       'test/factories/**/*.js',
+//       'test/routes/routes.js',
+//       'test/routes/**/*.js',
+//       'test/**/*.js'
+//     ],
 
 
     // list of files to exclude
@@ -66,16 +66,16 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
-    browserDisconnectTimeout: 10000,
-    browserDisconnectTolerance: 3,
-    captureTimeout: 60000,
-    browserNoActivityTimeout: 360000,
-    flags: [
-      '--disable-web-security',
-      '--disable-gpu',
-      '--no-sandbox'
-    ],
+   
+//     browserDisconnectTimeout: 10000,
+//     browserDisconnectTolerance: 3,
+//     captureTimeout: 60000,
+//     browserNoActivityTimeout: 360000,
+//     flags: [
+//       '--disable-web-security',
+//       '--disable-gpu',
+//       '--no-sandbox'
+//     ],
 
 
     // Continuous Integration mode
