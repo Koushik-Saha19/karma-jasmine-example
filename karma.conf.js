@@ -69,7 +69,8 @@ module.exports = function(config) {
     browsers: ['Chrome'],
     browserDisconnectTimeout: 10000,
     browserDisconnectTolerance: 3,
-    browserNoActivityTimeout: 60000,
+    captureTimeout: 60000,
+    browserNoActivityTimeout: 360000,
     flags: [
       '--disable-web-security',
       '--disable-gpu',
